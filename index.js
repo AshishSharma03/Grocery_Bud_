@@ -27,7 +27,7 @@ function addItem() {
     var price =document.getElementById('MoneyInput').value
     var paid = document.getElementById('paid').checked
 
-   
+    const date = new Date()
     // console.log()
     if(name && type && price && isNumeric(price)){
     
@@ -64,7 +64,7 @@ function addItem() {
             td.style.width = "2%"
             btn.onclick =  function ss(){
                del.disabled = false
-                var date = new Date()
+                
                 console.log(name,type,price)
                 const DetailName = document.getElementById("DetailName")
                 const DetailType = document.getElementById("DetailType")
@@ -88,7 +88,7 @@ function addItem() {
                 DetailPrice.style.color = "green"
             
                 // DetailPrice.style.fontSize = "2px"
-                DetailTime.innerHTML = (((date.getHours() > 12)? date.getHours() - 12 : date.getHours() )+":"+ date.getMinutes()+":"+date.getSeconds())
+                DetailTime.innerHTML = (((date.getHours() > 12)? date.getHours() - 12 : date.getHours() )+":"+ date.getMinutes()+":"+date.getSeconds()+" "+((date.getHours() > 12)? "PM" : "AM"))
             }
             td.appendChild(btn)
         }
