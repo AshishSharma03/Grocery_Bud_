@@ -181,6 +181,8 @@ font-family: Arial, Helvetica, sans-serif;
     box-shadow: 0px 0px 10px 10px rgb(255, 0, 0,0.1);
     border-radius: 5px;
     cursor: pointer;
+    border: none;
+    text-align: center;
 }
 .removeBtn:hover{
     color: red;
@@ -248,4 +250,9 @@ font-family: Arial, Helvetica, sans-serif;
 
 .Detail-Item{
     color: rgb(92, 92, 92);
+}
+
+#deletebtn:disabled{
+    color: silver;
+    box-shadow: none;
 }

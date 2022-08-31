@@ -1,6 +1,7 @@
 
 const navDate = document.getElementById('showDate')
-
+var del = document.getElementById('deletebtn')
+del.disabled = true
 setInterval(()=>{
     var navdatevalue = new Date()
     navDate.innerHTML = navdatevalue.toString()
@@ -62,6 +63,7 @@ function addItem() {
             td.style.padding = "0px"
             td.style.width = "2%"
             btn.onclick =  function ss(){
+               del.disabled = false
                 var date = new Date()
                 console.log(name,type,price)
                 const DetailName = document.getElementById("DetailName")
@@ -142,10 +144,11 @@ function addItem() {
 
 
 function DeleteItem(){
-
+    if(mainItemtable.childNodes.length > 2){
     const DetailId = document.getElementById('Detailid')
     var l = Number(DetailId.textContent)
-    l = l + 1
+
+        l = l + 1
     // console.log(l)
     const s = mainItemtable.childNodes[l]
     s.remove()
@@ -164,6 +167,9 @@ function DeleteItem(){
     DetailPaid.innerHTML = "";
     DetailDate.innerHTML = "";
     AllTotal()
+    }
+
+    del.disabled = true
 }
 
 
@@ -189,4 +195,5 @@ function AllTotal(){
      document.getElementById('UnPaidItemPrice').innerHTML = UnpaidItems
      document.getElementById('AllItemPrice').innerHTML = AllItem
      document.getElementById('NoOfAllItem').innerHTML = mainItemtable.childNodes.length - 2
+    
 }
