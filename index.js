@@ -1,3 +1,4 @@
+
 const navDate = document.getElementById('showDate')
 
 setInterval(()=>{
@@ -8,9 +9,6 @@ setInterval(()=>{
 
 
 const mainItemtable = document.getElementById('MainItemTable')
-
-// window.onload = alert("ss")
-
 
 var count = 1;
 
@@ -72,6 +70,8 @@ function addItem() {
                 const DetailPaid = document.getElementById("DetailPaid")
                 const DetailTime = document.getElementById("DetailTime")
                 const DetailPrice = document.getElementById("DetailPrice")
+                const DetailId = document.getElementById('Detailid')
+                DetailId.innerHTML = tr.childNodes[0].textContent
                 DetailName.innerHTML = name;
                 DetailType.innerHTML = type;
                 DetailDate.innerHTML =  date.getDate()+"/" + date.getMonth() +"/"+ date.getFullYear()
@@ -84,6 +84,7 @@ function addItem() {
                 }
                 DetailPrice.innerHTML = price + " rs /-";
                 DetailPrice.style.color = "green"
+            
                 // DetailPrice.style.fontSize = "2px"
                 DetailTime.innerHTML = (((date.getHours() > 12)? date.getHours() - 12 : date.getHours() )+":"+ date.getMinutes()+":"+date.getSeconds())
             }
@@ -98,26 +99,7 @@ function addItem() {
     mainItemtable.appendChild(tr)
     count++;
     console.log(mainItemtable.childNodes)
-    var AllItem = 0;
-    var paidItems = 0 , NoOfPaidItem = 0;
-    var UnpaidItems = 0 , NoOfUnPaidItem = 0;
-        for(i = 2;i<mainItemtable.childNodes.length;i++){
-            AllItem += Number(mainItemtable.childNodes[i].childNodes[2].textContent)
-            if(mainItemtable.childNodes[i].childNodes[3].textContent == "true"){
-               paidItems += Number(mainItemtable.childNodes[i].childNodes[2].textContent);
-               NoOfPaidItem++;
-            }
-            if(mainItemtable.childNodes[i].childNodes[3].textContent == "false"){
-                UnpaidItems += Number(mainItemtable.childNodes[i].childNodes[2].textContent);
-                NoOfUnPaidItem++;
-             }
-        }
-     document.getElementById('noOfPaidItem').innerHTML = NoOfPaidItem
-     document.getElementById('PaidItemPrice').innerHTML = paidItems
-     document.getElementById('noOfUnPaidItem').innerHTML = NoOfUnPaidItem
-     document.getElementById('UnPaidItemPrice').innerHTML = UnpaidItems
-     document.getElementById('AllItemPrice').innerHTML = AllItem
-     document.getElementById('NoOfAllItem').innerHTML = mainItemtable.childNodes.length - 2
+    AllTotal();
 
     }else{
         if(!name){
@@ -159,6 +141,52 @@ function addItem() {
 }
 
 
+function DeleteItem(){
+
+    const DetailId = document.getElementById('Detailid')
+    var l = Number(DetailId.textContent)
+    l = l + 1
+    // console.log(l)
+    const s = mainItemtable.childNodes[l]
+    s.remove()
+
+    count = 1
+    for(i = 2;i<mainItemtable.childNodes.length;i++){
+        mainItemtable.childNodes[i].childNodes[0].textContent = count    
+        count++;
+    }
+ 
+    DetailName.innerHTML = "";
+    DetailType.innerHTML = "";
+    Detailid.innerHTML = "";
+    DetailTime.innerHTML = "";
+    DetailPrice.innerHTML = "";
+    DetailPaid.innerHTML = "";
+    DetailDate.innerHTML = "";
+    AllTotal()
+}
 
 
 
+function AllTotal(){
+    var AllItem = 0;
+    var paidItems = 0 , NoOfPaidItem = 0;
+    var UnpaidItems = 0 , NoOfUnPaidItem = 0;
+        for(i = 2;i<mainItemtable.childNodes.length;i++){
+            AllItem += Number(mainItemtable.childNodes[i].childNodes[2].textContent)
+            if(mainItemtable.childNodes[i].childNodes[3].textContent == "true"){
+               paidItems += Number(mainItemtable.childNodes[i].childNodes[2].textContent);
+               NoOfPaidItem++;
+            }
+            if(mainItemtable.childNodes[i].childNodes[3].textContent == "false"){
+                UnpaidItems += Number(mainItemtable.childNodes[i].childNodes[2].textContent);
+                NoOfUnPaidItem++;
+             }
+        }
+     document.getElementById('noOfPaidItem').innerHTML = NoOfPaidItem
+     document.getElementById('PaidItemPrice').innerHTML = paidItems
+     document.getElementById('noOfUnPaidItem').innerHTML = NoOfUnPaidItem
+     document.getElementById('UnPaidItemPrice').innerHTML = UnpaidItems
+     document.getElementById('AllItemPrice').innerHTML = AllItem
+     document.getElementById('NoOfAllItem').innerHTML = mainItemtable.childNodes.length - 2
+}
